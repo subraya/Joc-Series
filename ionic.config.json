@@ -1,5 +1,7 @@
 {
   "name": "JocSeries",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
