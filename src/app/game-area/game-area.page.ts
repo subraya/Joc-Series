@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
-//import { HomePage } from '../home/home.page';
+import { QualificationService } from '../qualification.service';
+//import { QualificationComponent} from '../qualification/qualification.component'
 
 
 @Component({
@@ -13,12 +14,14 @@ export class GameAreaPage implements OnInit {
 
   data: any = [];
   dataReady: boolean;
+  qualification: Object = {};
 
-  constructor(private router: Router, private db: DBService) {}
+  constructor(private router: Router, private db: DBService, private qualifier: QualificationService) {}
 
   ngOnInit() {
     this.db.getAll().then(resp => {
       this.data = resp;
+      this.qualification = this.qualifier.evaluate(this.data);
       this.dataReady = true;
     });
   }
@@ -26,5 +29,4 @@ export class GameAreaPage implements OnInit {
   goMain(){
     this.router.navigate(['/home']);
   }
-
 }

@@ -8,7 +8,8 @@ import { GameAreaPageRoutingModule } from './game-area-routing.module';
 
 import { GameAreaPage } from './game-area.page';
 
-import { QuestionComponent } from '../question/question.component'
+import { QuestionComponent} from '../question/question.component'
+import { QualificationComponent} from '../qualification/qualification.component'
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { QuestionComponent } from '../question/question.component'
     IonicModule,
     GameAreaPageRoutingModule
   ],
-  declarations: [GameAreaPage, QuestionComponent]
+  declarations: [GameAreaPage, QuestionComponent, QualificationComponent]
 })
 export class GameAreaPageModule {}
