@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DBService } from '../db.service';
 
 @Component({
   selector: 'app-game-area',
@@ -7,43 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameAreaPage implements OnInit {
 
-  db: any = [
-    {
-      id: 1,
-      status: false,
-      options: ['abc', 'def'],
-      answer: null,
-      filename: 'xx.wav'
-    },
-    {
-      id: 2,
-      status: false,
-      options: ['ghi', 'jkl'],
-      answer: null,
-      filename: 'xx.wav'
-    },
-    {
-      id: 3,
-      status: false,
-      options: ['abc', 'def'],
-      answer: null,
-      filename: 'xx.wav'
-    },
-    {
-      id: 4,
-      status: false,
-      options: ['ghi', 'jkl'],
-      answer: null,
-      filename: 'xx.wav'
-    }
-  ]
+  data: any = [];
+  dataReady: boolean;
 
-  constructor() { 
-    console.log('constructing');
-  }
+  constructor(private db: DBService) {}
 
   ngOnInit() {
-    console.log('inot');
+    this.db.getAll().then(resp => {
+      this.data = resp;
+      this.dataReady = true;
+    });
   }
 
 }

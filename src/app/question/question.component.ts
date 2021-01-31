@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { AudioPlayerService } from '../audio-player.service';
+import { CacheService } from '../cache.service';
 
 @Component({
   selector: 'app-question',
@@ -17,9 +18,7 @@ export class QuestionComponent implements OnInit {
   file: MediaObject;
   playing: boolean;
 
-  constructor(private media: Media, private playSrv: AudioPlayerService) {
-    console.log('Hello QuestionComponent Component');
-  }
+  constructor(private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
 
   ngOnInit() {}
 
@@ -47,6 +46,7 @@ export class QuestionComponent implements OnInit {
       found = this.options.find(option => { return option == this.answer; });
     }
     this.status = !!found;
+    this.cache.saveQuestion(this);
   }
 
   statusText(){

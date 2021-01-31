@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <app-question *ngFor="let item of db" [id]="item.id" [answer]="item.answer" [options]="item.options" [status]="item.status" [filename]="item.filename"></app-question>
+  <ion-row *ngIf="dataReady">
+    <app-question *ngFor="let item of data" [id]="item.id" [answer]="item.answer" [options]="item.options" [status]="item.status" [filename]="item.filename"></app-question>
   </ion-row>
 </ion-content>
