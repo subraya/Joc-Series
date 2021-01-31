@@ -1,0 +1,42 @@
+:host {
+    td {
+        padding-left: 1px;
+        padding-right: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid;
+    }
+
+    table {
+        margin-bottom: 40px;
+        margin-right: 10px;
+    }
+
+    .title {
+        border: none;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .active {
+        background: repeating-linear-gradient(to bottom right, transparent 47%, transparent 50%, black 51%, transparent 51%, transparent 45%);
+    }
+
+    .answer {
+        background-color: lemonchiffon;
+        ion-input {
+            max-width: 150px;
+        }
+    }
+
+    .status {
+        text-align: center;
+        font-weight: bold;
+        &.pass {
+            background-color: lime;
+        }
+        &.fail {
+            background-color: red;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<ion-col>
+  <table>
+
+    <tr>
+      <td class="title">{{id}}</td>
+    </tr>
+
+    <tr>
+      <td (click)="play()" [ngClass]="{'active': playing}"><img src="../../assets/images/altaveu.jpg"></td>
+    </tr>
+
+    <tr>
+      <td class="answer"><ion-input type="text" placeholder="resposta" [(ngModel)]="answer" (change)="validateAnswer()"></ion-input></td>
+    </tr>
+
+    <tr>
+      <td class="status {{statusColorClass()}}">{{statusText()}}</td>
+    </tr>
+
+  </table>
+</ion-col>
