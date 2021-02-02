@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { Md5 } from 'ts-md5/dist/md5'; 
 import { AudioPlayerService } from '../audio-player.service';
 import { CacheService } from '../cache.service';
 
@@ -43,7 +44,7 @@ export class QuestionComponent implements OnInit {
   validateAnswer(){
     let found = null;
     if(this.answer){ 
-      found = this.options.find(option => { return option == this.answer; });
+      found = this.options.find(option => { return option == Md5.hashStr(this.answer); });
     }
     this.status = !!found;
     this.cache.saveQuestion(this);
