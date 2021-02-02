@@ -33,4 +33,8 @@ export class GameAreaPage implements OnInit {
   goMain(){
     this.router.navigate(['/home']);
   }
+
+  gameCompleted(){
+    return this.qualification['progress'] == '100%';
+  }
 }

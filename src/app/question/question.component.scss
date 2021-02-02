@@ -18,8 +18,12 @@
         font-weight: bold;
     }
 
+    .audio {
+        background-color: white;
+    }
+
     .active {
-        background: repeating-linear-gradient(to bottom right, transparent 47%, transparent 50%, black 51%, transparent 51%, transparent 45%);
+        background: repeating-linear-gradient(to bottom right, white 47%, white 50%, black 51%, white 51%, white 45%);
     }
 
     .answer {
