@@ -26,6 +26,10 @@ export class GameAreaPage implements OnInit {
     });
   }
 
+  updateQualification(scoreDiff){;
+    this.qualification = this.qualifier.updateQualification(scoreDiff);
+  }
+
   goMain(){
     this.router.navigate(['/home']);
   }

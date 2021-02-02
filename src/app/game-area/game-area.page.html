@@ -6,7 +6,7 @@
         <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-
+    
     <ion-title id="qualification">
       <span class="title">Encerts: </span>
       <span class="score"> {{qualification.progress}} </span>
@@ -19,6 +19,6 @@
 
 <ion-content>
   <ion-row *ngIf="dataReady">
-    <app-question *ngFor="let item of data" [id]="item.id" [answer]="item.answer" [options]="item.options" [status]="item.status" [filename]="item.filename"></app-question>
+    <app-question (statusChanged)="updateQualification($event)" *ngFor="let item of data" [id]="item.id" [answer]="item.answer" [options]="item.options" [status]="item.status" [filename]="item.filename"></app-question>
   </ion-row>
 </ion-content>

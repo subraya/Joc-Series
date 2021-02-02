@@ -15,17 +15,28 @@ export class QualificationService {
     this.score = exam.filter(question => { return question.status == true; }).length;
     this.calculateProgress();
     this.decideOpinion();
+    return this.toOutput();
+  }
+
+  updateQualification(scoreDiff){
+    this.score += scoreDiff;
+    this.calculateProgress();
+    this.decideOpinion();
+    return this.toOutput();
+  }
+
+  private toOutput(){
     return {
       progress: String(this.progress)+'%',
       opinion: this.opinion
     };
   }
 
-  calculateProgress(){
+  private calculateProgress(){
     this.progress = this.score/2;
   }
 
-  decideOpinion(){
+  private decideOpinion(){
     this.opinion = "somhi";
   }
 }
