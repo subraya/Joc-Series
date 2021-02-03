@@ -19,7 +19,7 @@ export class QuestionComponent implements OnInit {
   file: MediaObject;
   playing: boolean;
   @Output()
-  statusChanged: EventEmitter<number> = new EventEmitter<numbers>();
+  statusChanged: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
 
