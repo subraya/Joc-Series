@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.help {
+    .alert-message.sc-ion-alert-md, .alert-message.sc-ion-alert-ios {
+        ion-icon {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        p {
+            font-size: 0.9em;
+        }
+    }
+}

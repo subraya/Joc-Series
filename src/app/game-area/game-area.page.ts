@@ -26,7 +26,10 @@ export class GameAreaPage implements OnInit {
     });
   }
 
-  updateQualification(scoreDiff){;
+  // event listener
+  // triggers when a question's status changes
+  updateQualification(scoreDiff){
+    console.log(this.data[0]);
     this.qualification = this.qualifier.updateQualification(scoreDiff);
   }
 

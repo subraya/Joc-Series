@@ -1,16 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
-      <ion-button expand="block" fill="outline" color="medium" (click)="goMain()">
-        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-row>
+      <ion-buttons>
+        <ion-button expand="block" fill="outline" color="medium" (click)="goMain()">
+          <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     
-    <ion-title id="qualification">
-      <span class="title">Encerts: </span>
-      <span class="score"> {{qualification.progress}} </span>
-      <span class="comment">&nbsp;{{qualification.opinion}}</span>
-    </ion-title>
+      <ion-title id="qualification">
+        <span class="title">Encerts: </span>
+        <span class="score"> {{qualification.progress}} </span>
+        <span class="comment">&nbsp;{{qualification.opinion}}</span>
+      </ion-title>
+    </ion-row>
     <!--app-qualification *ngIf="dataReady" progress="qualification.progress" score="qualification.score" opinion="qualification.opinion"></app-qualification-->
   </ion-toolbar>
 </ion-header>
