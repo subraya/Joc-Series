@@ -18,8 +18,7 @@ export class QuestionComponent implements OnInit {
   @Input('filename') filename: string;
   file: MediaObject;
   playing: boolean;
-  @Output()
-  statusChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() onStatusChange: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private digest: ChangeDetectorRef, private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
 
@@ -61,7 +60,7 @@ export class QuestionComponent implements OnInit {
     this.status = !!found;
     this.cache.saveQuestion(this);
     if(this.status != prevStatus) {
-      this.statusChanged.emit(+!!this.status - Number(prevStatus)); //just trying different ways to cast boolean to number
+      this.onStatusChange.emit(+!!this.status - Number(prevStatus)); //just trying different ways to cast boolean to number
     }
   }
 
