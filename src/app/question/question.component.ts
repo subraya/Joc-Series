@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
 import { AudioPlayerService } from '../audio-player.service';
@@ -21,7 +21,7 @@ export class QuestionComponent implements OnInit {
   @Output()
   statusChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
+  constructor(private digest: ChangeDetectorRef, private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
 
   ngOnInit() {}
 
@@ -31,14 +31,23 @@ export class QuestionComponent implements OnInit {
   }
 
   private setupFile(){
-    this.file = this.media.create('../../assets/audios/'+this.filename);
+    this.file = this.media.create('/android_asset/www/assets/audios/'+this.filename);
     this.file.onStatusUpdate.subscribe(status => {
-      if (status.toString()=="1") { //player start
+      /* 
+        MEDIA_NONE: 0
+        MEDIA_PAUSED: 3
+        MEDIA_RUNNING: 2
+        MEDIA_STARTING: 1
+        MEDIA_STOPPED: 4
+      */
+      if (status == 1 || status == 2) { //player start
         this.playing = true;
+        this.digest.detectChanges();
       }
 
-      if (status.toString()=="4") { // player end running
+      if (status == 4) { // player end running
         this.playing = false;
+        this.digest.detectChanges();
       }
     }); 
   }

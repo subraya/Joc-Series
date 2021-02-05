@@ -20,7 +20,6 @@ export class QualificationComponent implements OnInit {
     this.score = exam.filter(question => { return question.status == true; }).length;
     this.calculateProgress();
     this.decideOpinion();
-    console.log(this);
   }
 
   calculateProgress(){
