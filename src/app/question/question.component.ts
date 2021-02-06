@@ -3,6 +3,7 @@ import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
 import { AudioPlayerService } from '../services/audio-player.service';
 import { CacheService } from '../services/cache.service';
+import { Guess } from '../guess';
 
 @Component({
   selector: 'app-question',
@@ -12,9 +13,8 @@ import { CacheService } from '../services/cache.service';
 export class QuestionComponent implements OnInit {
 
   @Input('id') id: number;
-  @Input('answer') answer: string;
   @Input('options') options: any;
-  @Input('status') status: boolean;
+  @Input('guess') guess: Guess;
   @Input('filename') filename: string;
   file: MediaObject;
   playing: boolean;
@@ -53,13 +53,13 @@ export class QuestionComponent implements OnInit {
 
   validateAnswer(){
     let found = null;
-    let prevStatus = this.status;
-    if(this.answer){ 
-      found = this.options.find(option => { return option == Md5.hashStr(this.answer); });
+    let prevStatus = this.guess.status;
+    if(this.guess.answer){ 
+      found = this.options.find(option => { return option == Md5.hashStr(this.guess.answer); });
     }
-    this.status = !!found;
+    this.guess.status = !!found;
     this.cache.saveQuestion(this);
-    if(this.status != prevStatus) {
+    if(this.guess.status != prevStatus) {
       this.onStatusChange.emit(+!!this.status - Number(prevStatus)); //just trying different ways to cast boolean to number
     }
   }
@@ -67,11 +67,11 @@ export class QuestionComponent implements OnInit {
   // Conditional styles
 
   statusText(){
-    return this.status ? 'CORRECTE' : 'INCORRECTE';
+    return this.guess.status ? 'CORRECTE' : 'INCORRECTE';
   }
 
   statusColorClass(){
-    return this.status ? 'pass' : 'fail';
+    return this.guess.status ? 'pass' : 'fail';
   }
 
 }

@@ -9,8 +9,8 @@ export class CacheService {
   constructor(private storage: Storage) { }
 
   saveQuestion(question) {
-    let guess = { id: question.id, answer: question.answer, status: question.status };
-    this.storage.set(<string>guess.id, guess);
+    let stored = { id: question.id, answer: question.guess.answer, status: question.guess.status };
+    this.storage.set(<string>question.id, stored);
   }
 
   public async getAll(): Promise<any[]>{
