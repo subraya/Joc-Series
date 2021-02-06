@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
-import { AudioPlayerService } from '../audio-player.service';
-import { CacheService } from '../cache.service';
+import { AudioPlayerService } from '../services/audio-player.service';
+import { CacheService } from '../services/cache.service';
 
 @Component({
   selector: 'app-question',

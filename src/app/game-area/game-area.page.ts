@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DBService } from '../db.service';
+import { DBService } from '../services/db.service';
 import { QualificationService } from '../qualification.service';
 //import { QualificationComponent} from '../qualification/qualification.component'
 
