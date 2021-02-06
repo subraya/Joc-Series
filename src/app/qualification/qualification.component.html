@@ -1,4 +1,8 @@
-<ion-title>
-  Encerts: {{progress}}% - {{opinion}} abc
+
+<ion-title class="title">
+  Encerts: <span class="score"> {{qualification.progress | percent:'.0-1'}} </span>
+</ion-title>
+<ion-title class="comment">
+  {{qualification.opinion}}
 </ion-title>
 

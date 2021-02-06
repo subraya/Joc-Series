@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Qualification } from '../models/qualification';
 
 @Component({
   selector: 'app-qualification',
@@ -7,27 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class QualificationComponent implements OnInit {
-
-  private score: number = 0;
-  progress: number;
-  opinion: string;
+  @Input('qualification') qualification: Qualification;
 
   constructor() { }
-
   ngOnInit() {}
-
-  evaluate(exam){
-    this.score = exam.filter(question => { return question.status == true; }).length;
-    this.calculateProgress();
-    this.decideOpinion();
-  }
-
-  calculateProgress(){
-    this.progress = this.score/2;
-  }
-
-  decideOpinion(){
-    this.opinion = "somhi";
-  }
-
 }

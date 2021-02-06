@@ -7,13 +7,8 @@
         </ion-button>
       </ion-buttons>
     
-      <ion-title id="qualification" *ngIf="dataReady">
-        <span class="title">Encerts: </span>
-        <span class="score"> {{qualification.progress}} </span>
-        <span class="comment">&nbsp;{{qualification.opinion}}</span>
-      </ion-title>
+      <app-qualification *ngIf="dataReady" [qualification]="qualification"></app-qualification>
     </ion-row>
-    <!--app-qualification *ngIf="dataReady" progress="qualification.progress" score="qualification.score" opinion="qualification.opinion"></app-qualification-->
   </ion-toolbar>
 </ion-header>
 

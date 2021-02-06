@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CacheService } from './cache.service';
-import { Guess } from '../guess';
+import { Guess } from '../models/guess';
 
 @Injectable({
   providedIn: 'root'
@@ -1028,10 +1028,11 @@ export class DBService {
     return this.cache.reset();
   }
 
+  // merge cached results
   private async prepare(): Promise<any>{
-    this.data = this.data.map(it => {
-      it.guess = new Guess(null, false);
-      return it;
+    this.data = this.data.map(item => {
+      item.guess = new Guess(null, false);
+      return item;
     });
     return this.cache.getAll().then(resp => { 
       resp.forEach(guess => { this.processCachedGuess(guess); }); 
@@ -1040,8 +1041,6 @@ export class DBService {
 
   private processCachedGuess(guess) {
     let question = this.data.find(item => { return item.id == guess.id; });
-    console.log(guess)
-    console.log(question);
     if(question){
       question.guess.answer = guess.answer;
       question.guess.status = guess.status;

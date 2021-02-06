@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from '../services/db.service';
-import { QualificationService } from '../services/qualification.service';
 import { LoaderService } from '../services/loader.service';
-//import { QualificationComponent} from '../qualification/qualification.component'
-
+import { Qualification } from '../models/qualification';
 
 @Component({
   selector: 'app-game-area',
@@ -15,9 +13,9 @@ export class GameAreaPage implements OnInit {
 
   data: any = [];
   dataReady: boolean;
-  qualification: Object = {};
+  qualification: Qualification = new Qualification();
 
-  constructor(private router: Router, private loader: LoaderService, private db: DBService, private qualifier: QualificationService) {}
+  constructor(private router: Router, private loader: LoaderService, private db: DBService) {}
 
   ngOnInit() {}
 
@@ -30,7 +28,7 @@ export class GameAreaPage implements OnInit {
     this.loader.show('Carregant...').then(() => {
       this.db.getAll().then(resp => {
         this.data = resp;
-        this.qualification = this.qualifier.evaluate(this.data);
+        this.qualification.evaluateGame(this.data);
         this.dataReady = true;
         this.loader.dismiss();
       });
@@ -49,10 +47,10 @@ export class GameAreaPage implements OnInit {
   }
 
   gameCompleted(){
-    return this.qualification['progress'] == '100%';
+    return this.qualification.progress == 1;
   }
 
   private updateQualification(scoreDiff){
-    this.qualification = this.qualifier.updateQualification(scoreDiff);
+    this.qualification.updateQualification(scoreDiff);
   }
 }

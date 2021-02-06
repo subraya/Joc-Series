@@ -1,0 +1,31 @@
+:host {
+    width: calc(100% - 60px);
+    display: flex;
+
+    ion-title {
+        height: 100%;
+        padding-right: 0px;
+
+        &.title {
+            font-weight: bolder !important;
+            text-align: center;
+            
+            span {
+                padding: 3px;
+                background-color: lemonchiffon;
+                text-align: center;
+                min-width: 64px;
+                display: inline-block;
+            }
+        }
+
+        &.comment {
+            font-style: italic;
+            font-weight: lighter;
+            font-size: small;
+            text-align: right;
+            padding-left: 0px;
+            max-width: 40%;
+        }
+    }
+}
