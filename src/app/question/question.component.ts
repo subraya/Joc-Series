@@ -2,7 +2,6 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } fro
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
 import { AudioPlayerService } from '../services/audio-player.service';
-import { CacheService } from '../services/cache.service';
 import { Guess } from '../guess';
 
 @Component({
@@ -13,20 +12,20 @@ import { Guess } from '../guess';
 export class QuestionComponent implements OnInit {
 
   @Input('id') id: number;
-  @Input('options') options: any;
+  @Input('options') options: string[];
   @Input('guess') guess: Guess;
   @Input('filename') filename: string;
   file: MediaObject;
   playing: boolean;
-  @Output() onStatusChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() onNewAnswer: EventEmitter<Object> = new EventEmitter<Object>();
 
-  constructor(private digest: ChangeDetectorRef, private media: Media, private playSrv: AudioPlayerService, private cache: CacheService) {}
+  constructor(private digest: ChangeDetectorRef, private media: Media, private player: AudioPlayerService) {}
 
   ngOnInit() {}
 
   play(){
     if(!this.file) this.setupFile();
-    this.playSrv.play(this.file);
+    this.player.play(this.file);
   }
 
   private setupFile(){
@@ -51,17 +50,19 @@ export class QuestionComponent implements OnInit {
     }); 
   }
 
-  validateAnswer(){
-    let found = null;
+  processAnswer(){
     let prevStatus = this.guess.status;
+    this.validateAnswer();
+    this.onNewAnswer.emit({id: this.id, scoreDiff: +!!this.guess.status - Number(prevStatus)});
+    //just trying different ways to cast boolean to number
+  }
+
+  private validateAnswer(){
+    let found = null;
     if(this.guess.answer){ 
       found = this.options.find(option => { return option == Md5.hashStr(this.guess.answer); });
     }
     this.guess.status = !!found;
-    this.cache.saveQuestion(this);
-    if(this.guess.status != prevStatus) {
-      this.onStatusChange.emit(+!!this.status - Number(prevStatus)); //just trying different ways to cast boolean to number
-    }
   }
 
   // Conditional styles

@@ -8,7 +8,7 @@ import { Guess } from '../guess';
 })
 export class DBService {
 
-  data: any = [
+  private data: any = [
     {
       id: 1,
       filename: "001.mp3",
@@ -1017,6 +1017,10 @@ export class DBService {
     return this.prepare().then(resp => {
       return this.data;
     })
+  }
+
+  saveQuestion(question){
+    this.cache.saveQuestion(question);
   }
 
   private async prepare(): Promise<any>{

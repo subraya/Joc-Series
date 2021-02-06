@@ -7,7 +7,7 @@
         </ion-button>
       </ion-buttons>
     
-      <ion-title id="qualification">
+      <ion-title id="qualification" *ngIf="dataReady">
         <span class="title">Encerts: </span>
         <span class="score"> {{qualification.progress}} </span>
         <span class="comment">&nbsp;{{qualification.opinion}}</span>
@@ -19,6 +19,6 @@
 
 <ion-content >
   <ion-row *ngIf="dataReady" [ngClass]="{'gold': gameCompleted()}">
-    <app-question (onStatusChange)="updateQualification($event)" *ngFor="let item of data" [id]="item.id" [guess]="item.guess" [options]="item.options" [filename]="item.filename"></app-question>
+    <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let item of data" [id]="item.id" [guess]="item.guess" [options]="item.options" [filename]="item.filename"></app-question>
   </ion-row>
 </ion-content>
