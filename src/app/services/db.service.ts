@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CacheService } from './cache.service';
-import { Md5 } from 'ts-md5/dist/md5'; 
 import { Guess } from '../guess';
 
 @Injectable({
   providedIn: 'root'
 })
+
+// DBService acts as an API to the rest of the project
 export class DBService {
 
   private data: any = [
@@ -1021,6 +1022,10 @@ export class DBService {
 
   saveQuestion(question){
     this.cache.saveQuestion(question);
+  }
+
+  async reset(){
+    return this.cache.reset();
   }
 
   private async prepare(): Promise<any>{

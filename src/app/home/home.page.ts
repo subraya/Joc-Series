@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Guess } from '../guess';
+import { DBService } from '../services/db.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomePage {
   allColors: string[] = ['red', 'green', 'blue', 'yellow', 'purple', 'pink'];
   remColors: string[];
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController, private loader: LoaderService, private db: DBService) {}
 
   ngOnInit(){
     this.loadColors();
@@ -34,24 +35,29 @@ export class HomePage {
     await alert.present();
   }
 
-  async reset() {
+  // reset progress
+  async showReset() {
     const alert = await this.alertController.create({
-      cssClass: 'help',
+      cssClass: 'modal-help',
       message: "Esborrar tot el progrés del joc?",
       buttons: [
-        {
-          text: 'Esborrar',
-          handler: () => { console.log('clear progress'); }
-        },
-        {
-          text: 'No esborrar',
-          role: 'cancel'
-        }
+        { text: 'Esborrar', handler: () => { this.reset(); } },
+        { text: 'No esborrar', role: 'cancel' }
       ]
     });
 
     await alert.present();
   }
+
+  private reset(){
+    this.loader.show(null).then(() => {
+      this.db.reset().then(() => {
+        this.loader.dismiss();
+      });
+    });
+  }
+
+  // logo color animation functions
 
   private setLogoColor(color: string){
     this.color = color;

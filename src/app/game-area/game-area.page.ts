@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from '../services/db.service';
 import { QualificationService } from '../services/qualification.service';
-import { LoadingController } from '@ionic/angular';
+import { LoaderService } from '../services/loader.service';
 //import { QualificationComponent} from '../qualification/qualification.component'
 
 
@@ -17,15 +17,22 @@ export class GameAreaPage implements OnInit {
   dataReady: boolean;
   qualification: Object = {};
 
-  constructor(private router: Router, private loadingCtrl: LoadingController, private db: DBService, private qualifier: QualificationService) {}
+  constructor(private router: Router, private loader: LoaderService, private db: DBService, private qualifier: QualificationService) {}
 
-  ngOnInit() {
-    this.displayLoader().then(() => {
+  ngOnInit() {}
+
+  ionViewWillEnter(){
+    this.dataReady = false;
+  }
+
+  // reload db every time, just in case progress was resetted from home
+  ionViewDidEnter(){
+    this.loader.show('Carregant...').then(() => {
       this.db.getAll().then(resp => {
         this.data = resp;
         this.qualification = this.qualifier.evaluate(this.data);
         this.dataReady = true;
-        this.loadingCtrl.dismiss();
+        this.loader.dismiss();
       });
     });
   }
@@ -48,15 +55,4 @@ export class GameAreaPage implements OnInit {
   private updateQualification(scoreDiff){
     this.qualification = this.qualifier.updateQualification(scoreDiff);
   }
-
-  private async displayLoader(){
-    let loader = await this.loadingCtrl.create({
-      spinner: 'circular',
-      message: 'Carregant...'
-    });
-    await loader.present();
-
-    return loader;
-  }
-
 }

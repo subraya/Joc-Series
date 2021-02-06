@@ -4,6 +4,8 @@ import { Storage } from '@ionic/storage';
 @Injectable({
   providedIn: 'root'
 })
+
+// CacheService acts as a db client/connector
 export class CacheService {
 
   constructor(private storage: Storage) { }
@@ -14,11 +16,14 @@ export class CacheService {
   }
 
   public async getAll(): Promise<any[]>{
-
     let data: Array<any> = [];
     await this.storage.forEach((v, key, i)=>{
       data.push(v);
     });
     return data;
+  }
+
+  reset(){
+    return this.storage.clear();
   }
 }

@@ -1,18 +1,12 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="menu">
-    <ion-button fill="outline" color="medium" class="lateral" (click)="showInfo()">
+  <div id="side-menu">
+    <ion-button fill="outline" color="medium" (click)="showInfo()">
       <ion-icon src="assets/icon/question.svg" slot="icon-only"></ion-icon>
     </ion-button>
 
     <br>
   
-    <ion-button fill="outline" color="medium" class="lateral" (click)="reset()">
+    <ion-button fill="outline" color="medium" (click)="showReset()">
       <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
