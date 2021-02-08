@@ -1,12 +1,14 @@
+import { Question } from './question';
+
 export class Qualification {
-    score: number = 0;
+    score: number;
     progress: number;
     opinion: string;
 
     constructor(){}
 
-    evaluateGame(game: any[]){
-        this.score = game.filter(question => { return question.guess.status == true; }).length;
+    evaluateGame(game: Question[]){
+        this.score = game.filter((question: Question) => { return question.guess.status == true; }).length;
         this.evaluateScore();
     }
     

@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonInput } from '@ionic/angular';
-import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
 import { AudioPlayerService } from '../../services/audio-player.service';
-import { Guess } from '../../models/guess';
+import { Question } from '../../models/question';
 
-declare var $:any;
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -13,17 +12,14 @@ declare var $:any;
 })
 export class QuestionComponent implements OnInit {
 
-  @Input('id') id: number;
-  @Input('options') options: string[];
-  @Input('guess') guess: Guess;
-  @Input('filename') filename: string;
+  @Input('question') question: Question;
   private file: MediaObject;
   playing: boolean;
   @ViewChild("txtInput", { static: false }) txtInput: IonInput;
   @Output() onNewAnswer: EventEmitter<Object> = new EventEmitter<Object>();
 
 
-  constructor(private digest: ChangeDetectorRef, private media: Media, private player: AudioPlayerService) {}
+  constructor(private digest: ChangeDetectorRef, private player: AudioPlayerService) {}
 
   ngOnInit() {}
 
@@ -35,24 +31,24 @@ export class QuestionComponent implements OnInit {
 
   // validate the answer and notify it
   processAnswer(){
-    let prevStatus = this.guess.status;
+    let prevStatus = this.question.guess.status;
     this.validateAnswer();
-    this.onNewAnswer.emit({id: this.id, scoreDiff: +!!this.guess.status - Number(prevStatus)}); //just trying different ways to cast boolean to number
+    this.onNewAnswer.emit({id: this.question.id, scoreDiff: +!!this.question.guess.status - Number(prevStatus)}); //just trying different ways to cast boolean to number
     this.blurInput();
   }
 
   // check if the answer is valid
   private validateAnswer(){
     let found = null;
-    if(this.guess.answer){ 
-      found = this.options.find(option => { return option == Md5.hashStr(this.guess.answer); });
+    if(this.question.guess.answer){ 
+      found = this.question.options.find(option => { return option == Md5.hashStr(this.question.guess.answer); });
     }
-    this.guess.status = !!found;
+    this.question.guess.status = !!found;
   }
 
   // create the audio file if it didn't exist before
   private setupFile(){
-    this.file = this.media.create(this.filename);
+    this.file = this.player.loadFile(this.question.filename);
     this.file.onStatusUpdate.subscribe(status => {
       /* 
         MEDIA_NONE: 0
@@ -83,12 +79,12 @@ export class QuestionComponent implements OnInit {
 
   // Conditional styles
 
-  statusText(){
-    return this.guess.status ? 'CORRECTE' : 'INCORRECTE';
+  statusText(): string{
+    return this.question.guess.status ? 'CORRECTE' : 'INCORRECTE';
   }
 
-  statusColorClass(){
-    return this.guess.status ? 'pass' : 'fail';
+  statusColorClass(): string{
+    return this.question.guess.status ? 'pass' : 'fail';
   }
 
 }

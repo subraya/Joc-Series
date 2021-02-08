@@ -1,14 +1,25 @@
+import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { MediaObject } from '@ionic-native/media/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioPlayerService {
-
+  private filepathPrefix = '../../assets/audios/';
   private currentFile: MediaObject;
 
-  constructor() { }
+  constructor(private platform: Platform, private media: Media) { }
+
+  setFilepathPrefix(){
+    if(this.platform.is('android')){
+      this.filepathPrefix = '/android_asset/www/assets/audios/';
+    }
+  }
+
+  loadFile(filename: string): MediaObject{
+    return this.media.create(this.filepathPrefix + filename);
+  }
 
   public play(file: MediaObject){
     this.stopCurrent();

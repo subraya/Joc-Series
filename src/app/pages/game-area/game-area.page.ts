@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from '../../services/db.service';
 import { LoaderService } from '../../services/loader.service';
+import { AudioPlayerService } from '../../services/audio-player.service';
 import { Qualification } from '../../models/qualification';
+import { Question } from '../../models/question';
 
 @Component({
   selector: 'app-game-area',
@@ -11,13 +13,15 @@ import { Qualification } from '../../models/qualification';
 })
 export class GameAreaPage implements OnInit {
 
-  data: any = [];
+  game: Question[];
   dataReady: boolean;
-  qualification: Qualification = new Qualification();
+  qualification = new Qualification();
 
-  constructor(private router: Router, private loader: LoaderService, private db: DBService) {}
+  constructor(private router: Router, private loader: LoaderService, private db: DBService, private player: AudioPlayerService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.player.setFilepathPrefix();
+  }
 
   ionViewWillEnter(){
     this.dataReady = false;
@@ -26,9 +30,9 @@ export class GameAreaPage implements OnInit {
   // reload db every time, just in case progress was resetted from home
   ionViewDidEnter(){
     this.loader.show('Carregant...').then(() => {
-      this.db.getAll().then(resp => {
-        this.data = resp;
-        this.qualification.evaluateGame(this.data);
+      this.db.getAll().then((resp: Question[]) => {
+        this.game = resp;
+        this.qualification.evaluateGame(this.game);
         this.dataReady = true;
         this.loader.dismiss();
       });
@@ -37,9 +41,9 @@ export class GameAreaPage implements OnInit {
 
   // event listener
   // triggers when an answer is submitted
-  onNewAnswer(ev: any){
-    this.updateQualification(ev.scoreDiff);
-    this.db.saveQuestion(this.data[ev.id-1]);
+  onNewAnswer(ev: Object){
+    this.updateQualification(ev['scoreDiff']);
+    this.db.saveQuestion(this.game[ev['id']-1]);
   }
 
   // return to home page
@@ -47,7 +51,7 @@ export class GameAreaPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  gameCompleted(){
+  gameCompleted(): boolean{
     return this.qualification.isPerfect();
   }
 

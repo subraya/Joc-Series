@@ -14,6 +14,6 @@
 
 <ion-content>
   <ion-row *ngIf="dataReady" [ngClass]="{'gold': gameCompleted()}">
-    <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let item of data" [id]="item.id" [guess]="item.guess" [options]="item.options" [filename]="item.filename"></app-question>
+    <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let question of game" [question]="question"></app-question>
   </ion-row>
 </ion-content>

@@ -11,8 +11,8 @@ import { LoaderService } from '../../services/loader.service';
 })
 export class HomePage {
 
-  color: string = null;
-  allColors: string[] = ['red', 'green', 'blue', 'yellow', 'purple', 'pink'];
+  color: string;
+  allColors = ['red', 'green', 'blue', 'yellow', 'purple', 'pink'];
   remColors: string[];
 
   constructor(private router: Router, private alertController: AlertController, private loader: LoaderService, private db: DBService) {}
@@ -82,7 +82,7 @@ export class HomePage {
   }
 
   // consume a color from the remaining colors' list
-  private consumeColor(){
+  private consumeColor(): string{
     let idx = Math.floor(Math.random() * this.remColors.length);
     return  this.remColors.splice(idx, 1)[0];
   }
