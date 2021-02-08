@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { IonInput } from '@ionic/angular';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Md5 } from 'ts-md5/dist/md5'; 
-import { AudioPlayerService } from '../services/audio-player.service';
-import { Guess } from '../models/guess';
+import { AudioPlayerService } from '../../services/audio-player.service';
+import { Guess } from '../../models/guess';
 
+declare var $:any;
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -15,21 +17,43 @@ export class QuestionComponent implements OnInit {
   @Input('options') options: string[];
   @Input('guess') guess: Guess;
   @Input('filename') filename: string;
-  file: MediaObject;
+  private file: MediaObject;
   playing: boolean;
+  @ViewChild("txtInput", { static: false }) txtInput: IonInput;
   @Output() onNewAnswer: EventEmitter<Object> = new EventEmitter<Object>();
+
 
   constructor(private digest: ChangeDetectorRef, private media: Media, private player: AudioPlayerService) {}
 
   ngOnInit() {}
 
+  // get and play the audio file
   play(){
     if(!this.file) this.setupFile();
     this.player.play(this.file);
   }
 
+  // validate the answer and notify it
+  processAnswer(){
+    let prevStatus = this.guess.status;
+    this.validateAnswer();
+    this.onNewAnswer.emit({id: this.id, scoreDiff: +!!this.guess.status - Number(prevStatus)}); //just trying different ways to cast boolean to number
+    this.blurInput();
+  }
+
+  // check if the answer is valid
+  private validateAnswer(){
+    let found = null;
+    if(this.guess.answer){ 
+      found = this.options.find(option => { return option == Md5.hashStr(this.guess.answer); });
+    }
+    this.guess.status = !!found;
+  }
+
+  // create the audio file if it didn't exist before
   private setupFile(){
-    this.file = this.media.create('/android_asset/www/assets/audios/'+this.filename);
+    console.log(this.filename)
+    this.file = this.media.create(this.filename);
     this.file.onStatusUpdate.subscribe(status => {
       /* 
         MEDIA_NONE: 0
@@ -50,19 +74,12 @@ export class QuestionComponent implements OnInit {
     }); 
   }
 
-  processAnswer(){
-    let prevStatus = this.guess.status;
-    this.validateAnswer();
-    this.onNewAnswer.emit({id: this.id, scoreDiff: +!!this.guess.status - Number(prevStatus)});
-    //just trying different ways to cast boolean to number
-  }
-
-  private validateAnswer(){
-    let found = null;
-    if(this.guess.answer){ 
-      found = this.options.find(option => { return option == Md5.hashStr(this.guess.answer); });
-    }
-    this.guess.status = !!found;
+  // focus out the text input
+  // get rid of the keyboard when pressing enter
+  private blurInput(){
+    this.txtInput.getInputElement().then(
+      inputElement => inputElement.blur()
+    );
   }
 
   // Conditional styles

@@ -6,7 +6,10 @@
 
     .gold {
         background-color: gold;
+        --background: gold;
     }
 
-    display: flex;
+    ion-toolbar ion-button {
+        background-color: white;
+    }
 }

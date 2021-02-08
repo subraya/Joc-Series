@@ -42,12 +42,13 @@ export class GameAreaPage implements OnInit {
     this.db.saveQuestion(this.data[ev.id-1]);
   }
 
+  // return to home page
   goMain(){
     this.router.navigate(['/home']);
   }
 
   gameCompleted(){
-    return this.qualification.progress == 1;
+    return this.qualification.isPerfect();
   }
 
   private updateQualification(scoreDiff){

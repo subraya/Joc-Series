@@ -27,6 +27,7 @@
     "@ionic/storage": "^2.3.1",
     "cordova-android": "9.0.0",
     "cordova-browser": "6.0.0",
+    "ionic-angular": "^3.9.10",
     "rxjs": "~6.5.5",
     "ts-md5": "^1.2.7",
     "tslib": "^2.0.0",

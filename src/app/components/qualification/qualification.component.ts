@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Qualification } from '../models/qualification';
+import { Qualification } from '../../models/qualification';
 
 @Component({
   selector: 'app-qualification',

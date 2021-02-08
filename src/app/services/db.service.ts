@@ -1,3 +1,4 @@
+import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { CacheService } from './cache.service';
 import { Guess } from '../models/guess';
@@ -1011,8 +1012,9 @@ export class DBService {
       options: ["0a9ab640460634071aeaff0db1b16047"]
     }
   ]
+  private filepathPrefix: string = '../../assets/audios/'
 
-  constructor(private cache: CacheService) { }
+  constructor(private platform: Platform, private cache: CacheService) { }
 
   async getAll(): Promise<any>{
     return this.prepare().then(resp => {
@@ -1028,15 +1030,24 @@ export class DBService {
     return this.cache.reset();
   }
 
-  // merge cached results
+  // build questions and merge cached results
   private async prepare(): Promise<any>{
+    this.setFilepathPrefix();
     this.data = this.data.map(item => {
       item.guess = new Guess(null, false);
+      item.filename = this.filepathPrefix + item.filename;
       return item;
     });
     return this.cache.getAll().then(resp => { 
       resp.forEach(guess => { this.processCachedGuess(guess); }); 
     });
+  }
+
+  private setFilepathPrefix(){
+    console.log(this.platform)
+    if(this.platform.is('android')){
+      this.filepathPrefix = '/android_asset/www/assets/audios/';
+    }
   }
 
   private processCachedGuess(guess) {

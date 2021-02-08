@@ -18,7 +18,7 @@ export class HomePage {
   constructor(private router: Router, private alertController: AlertController, private loader: LoaderService, private db: DBService) {}
 
   ngOnInit(){
-    this.loadColors();
+    this.reloadColors();
     this.triggerNextColor(this);
   }
 
@@ -26,6 +26,7 @@ export class HomePage {
     this.router.navigate(['/game-area']);
   }
 
+  // display info alert
   async showInfo() {
     const alert = await this.alertController.create({
       cssClass: 'help',
@@ -35,7 +36,7 @@ export class HomePage {
     await alert.present();
   }
 
-  // reset progress
+  // display reset alert
   async showReset() {
     const alert = await this.alertController.create({
       cssClass: 'modal-help',
@@ -49,6 +50,7 @@ export class HomePage {
     await alert.present();
   }
 
+  // clear game progress
   private reset(){
     this.loader.show(null).then(() => {
       this.db.reset().then(() => {
@@ -57,26 +59,32 @@ export class HomePage {
     });
   }
 
-  // logo color animation functions
+  /* logo color animation functions */
 
   private setLogoColor(color: string){
     this.color = color;
   }
 
-  private loadColors(){
+  // restart remaining colors
+  private reloadColors(){
     this.remColors = this.allColors.map(color => color);
   }
 
   private nextColor(){
-    let idx = Math.floor(Math.random() * this.remColors.length);
-    let color = this.remColors.splice(idx, 1)[0];
+    let color = this.consumeColor();
     this.setLogoColor(color);
-    if(this.remColors.length == 0) this.loadColors();
+    if(this.remColors.length == 0) this.reloadColors();
     this.triggerNextColor(this);
   }
 
   private triggerNextColor(page){
-    setTimeout(function(){ page.nextColor(); }, 30000);
+    setTimeout(function(){ page.nextColor(); }, 30000); // time matches the css animation's duration
+  }
+
+  // consume a color from the remaining colors' list
+  private consumeColor(){
+    let idx = Math.floor(Math.random() * this.remColors.length);
+    return  this.remColors.splice(idx, 1)[0];
   }
 
 }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [ngClass]="{'gold': gameCompleted()}">
     <ion-row>
       <ion-buttons>
         <ion-button expand="block" fill="outline" color="medium" (click)="goMain()">
@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-row *ngIf="dataReady" [ngClass]="{'gold': gameCompleted()}">
     <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let item of data" [id]="item.id" [guess]="item.guess" [options]="item.options" [filename]="item.filename"></app-question>
   </ion-row>

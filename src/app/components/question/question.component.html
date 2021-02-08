@@ -2,7 +2,7 @@
   <table>
 
     <tr>
-      <td class="title">{{id}}<ion-icon name="expand-outline"></ion-icon></td>
+      <td class="title">{{id}}</td>
     </tr>
 
     <tr>
@@ -10,7 +10,7 @@
     </tr>
 
     <tr>
-      <td class="answer"><ion-input type="text" placeholder="resposta" [(ngModel)]="guess.answer" (change)="processAnswer()"></ion-input></td>
+      <td class="answer"><ion-input type="text" #txtInput placeholder="resposta" [(ngModel)]="guess.answer" (change)="processAnswer()"></ion-input></td>
     </tr>
 
     <tr>
