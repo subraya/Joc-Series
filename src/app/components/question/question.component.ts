@@ -52,7 +52,6 @@ export class QuestionComponent implements OnInit {
 
   // create the audio file if it didn't exist before
   private setupFile(){
-    console.log(this.filename)
     this.file = this.media.create(this.filename);
     this.file.onStatusUpdate.subscribe(status => {
       /* 

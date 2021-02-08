@@ -1044,7 +1044,6 @@ export class DBService {
   }
 
   private setFilepathPrefix(){
-    console.log(this.platform)
     if(this.platform.is('android')){
       this.filepathPrefix = '/android_asset/www/assets/audios/';
     }

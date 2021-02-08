@@ -19,7 +19,7 @@ export class HomePage {
 
   ngOnInit(){
     this.reloadColors();
-    this.triggerNextColor(this);
+    this.triggerNextColor();
   }
 
   start(){
@@ -74,11 +74,11 @@ export class HomePage {
     let color = this.consumeColor();
     this.setLogoColor(color);
     if(this.remColors.length == 0) this.reloadColors();
-    this.triggerNextColor(this);
   }
 
-  private triggerNextColor(page){
-    setTimeout(function(){ page.nextColor(); }, 30000); // time matches the css animation's duration
+  private triggerNextColor(){
+    let page = this;
+    setInterval(function(){ page.nextColor(); }, 31000); // interval must match the css animation's duration
   }
 
   // consume a color from the remaining colors' list

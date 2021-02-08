@@ -30,13 +30,15 @@ export class Qualification {
     
     private decideOpinion(){
         if(this.progress < 0.005) this.opinion = 'comencem?';
-        else if(this.progress < 0.125) this.opinion = "esforça't una mica";
-        else if(this.progress < 0.250) this.opinion = 'això és tot?';
-        else if(this.progress < 0.375) this.opinion = 'Això és tot?';
-        else if(this.progress < 0.500) this.opinion = 'patata';
-        else if(this.progress < 0.500) this.opinion = 'ni fu ni fa';
-        else if(this.progress < 0.750) this.opinion = 'apostoflant';
-        else if(this.progress < 0.875) this.opinion = "ets una llegenda";
+        else if(this.progress < 0.1) this.opinion = "esforça't una mica";
+        else if(this.progress < 0.2) this.opinion = 'això és tot?';
+        else if(this.progress < 0.3) this.opinion = 'decebedor';
+        else if(this.progress < 0.4) this.opinion = 'patata';
+        else if(this.progress < 0.5) this.opinion = 'patata';
+        else if(this.progress < 0.6) this.opinion = "ara m'agrades";
+        else if(this.progress < 0.7) this.opinion = 'apostoflant';
+        else if(this.progress < 0.8) this.opinion = 'no et rendeixis!';
+        else if(this.progress < 0.9) this.opinion = "ets una llegenda";
         else if(this.progress < 1.000) this.opinion = "casa't amb mi";
         else this.opinion = '';
     }

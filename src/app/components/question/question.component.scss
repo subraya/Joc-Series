@@ -4,21 +4,11 @@
     padding-right: 5px;
     width: var(--question-width);
 
-    margin: 0px calc((((100%)/10) - var(--question-width))/2);
-    /*
-    @media (max-width: 1519px) { margin: 0px calc((((100%)/9) - var(--question-width))/2); }
-    @media (max-width: 1369px) { margin: 0px calc((((100%)/8) - var(--question-width))/2); }
-    @media (max-width: 1219px) { margin: 0px calc((((100%)/7) - var(--question-width))/2); }
-    @media (max-width: 1069px) { margin: 0px calc((((100%)/6) - var(--question-width))/2); }
-    @media (max-width: 919px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); }
-    @media (max-width: 769px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); }
-    @media (max-width: 619px) { margin: 0px calc((((100%)/3) - var(--question-width))/2); }
-    @media (max-width: 469px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); }
-    */
-
-    @media (max-width: 1536px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); }
-    @media (max-width: 786px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); }
-    @media (max-width: 619px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); }
+    // dynamic margin to center each row of questions
+    margin: 0px calc((((100%)/10) - var(--question-width))/2); // 10 questions per row
+    @media (max-width: 1536px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); } // 5 questions per row
+    @media (max-width: 786px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); } // 4 questions per row
+    @media (max-width: 619px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); } // 2 questions per row
 
     td {
         padding-left: 1px;

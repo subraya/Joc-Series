@@ -1,6 +1,6 @@
 
 <ion-title class="title">
-  Encerts: <span class="score"> {{qualification.progress | percent:'.0-1'}} </span>
+  Encerts: <span class="score" [ngClass]="{'gold': qualification.isPerfect()}"> {{qualification.progress | percent:'.1'}} </span>
 </ion-title>
 <ion-title class="comment">
   {{qualification.opinion}}
