@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { DBService } from '../services/db.service';
-import { LoaderService } from '../services/loader.service';
+import { DBService } from '../../services/db.service';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-home',

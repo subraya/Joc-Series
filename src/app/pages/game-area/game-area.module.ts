@@ -8,8 +8,8 @@ import { GameAreaPageRoutingModule } from './game-area-routing.module';
 
 import { GameAreaPage } from './game-area.page';
 
-import { QuestionComponent} from '../components/question/question.component'
-import { QualificationComponent} from '../components/qualification/qualification.component'
+import { QuestionComponent} from '../../components/question/question.component'
+import { QualificationComponent} from '../../components/qualification/qualification.component'
 
 @NgModule({
   imports: [
