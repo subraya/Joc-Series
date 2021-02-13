@@ -8,4 +8,9 @@ export class Guess {
         this.answer = answer;
         this.status = status;
     }
+
+    reset(){
+        this.answer = null;
+        this.status = false;
+    }
 }

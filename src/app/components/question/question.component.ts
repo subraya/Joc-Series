@@ -39,6 +39,7 @@ export class QuestionComponent implements OnInit {
 
   // check if the answer is valid
   private validateAnswer(){
+    // NO CHEATING !!!!
     let found = null;
     if(this.question.guess.answer){ 
       found = this.question.options.find(option => { return option == Md5.hashStr(this.question.guess.answer); });
@@ -64,6 +65,7 @@ export class QuestionComponent implements OnInit {
 
       if (status == 4) { // player end running
         this.playing = false;
+        this.file.release();
         this.digest.detectChanges();
       }
     }); 

@@ -9,14 +9,14 @@ import { Question } from '../models/question';
 
 // DBService acts as an API to the rest of the project
 export class DBService {
-  private data = {
+  private data = { // NO CHEATING !!!!
     1: new Question(1, "001.mp3", ["ba5ba39b31fe9ac8cb002305d1ecfff4", "fb7f6ffdf924c1f8397173c5e657fbb3"]),
-    2:new Question(2, "002.mp3", ["6f03a97b24689efb249a671cf06f9801"]),
-    3:new Question(3, "003.mp3", ["caecfa4a5896f1f918032ec46d169fbe"]),
-    4:new Question(4, "004.mp3", ["8019bbde91550782bed02303883cd458"]),
-    5:new Question(5, "005.mp3", ["1d0670cc0c3e8b7fe9f8f5ebf9e60af5"]),
-    6:new Question(6, "006.mp3", ["03fdd4ba349c4d2115cde48f3ef7c769"]),
-    7:new Question(7, "007.mp3", ["a3e3c6fd48ad55dac2c5b1adbdca0645"]),
+    2: new Question(2, "002.mp3", ["6f03a97b24689efb249a671cf06f9801"]),
+    3: new Question(3, "003.mp3", ["caecfa4a5896f1f918032ec46d169fbe"]),
+    4: new Question(4, "004.mp3", ["8019bbde91550782bed02303883cd458"]),
+    5: new Question(5, "005.mp3", ["1d0670cc0c3e8b7fe9f8f5ebf9e60af5"]),
+    6: new Question(6, "006.mp3", ["03fdd4ba349c4d2115cde48f3ef7c769"]),
+    7: new Question(7, "007.mp3", ["a3e3c6fd48ad55dac2c5b1adbdca0645"]),
     8: new Question(8, "008.mp3", ["432de5ae91969706d2ae0e0c8598c133"]),
     9: new Question(9, "009.mp3", ["b23076c194a651ba1db04776d4e7a2d2"]),
     10: new Question(10, "010.mp3", ["42216fd740c8b8d21ccefde1663fcd23"]),
@@ -160,7 +160,7 @@ export class DBService {
     148: new Question(148, "148.mp3", ["619b446f1df515147442f2e5f66be628"]),
     149: new Question(149, "149.mp3", ["af33cca8920794bd808044ce8c946ef0"]),
     150: new Question(150, "150.mp3", ["8a3ce04d4bc723b9e187cc84369738d2"]),
-    151: new Question(151, "151.mp3", []),
+    151: new Question(151, "151.mp3", ["ec2182992215ec2a54506979a4ed715b"]),
     152: new Question(152, "152.mp3", ["910e96b4f055ea9cdf95885a12481869", "22320e4907e0bd3ac915c60ab1355896"]),
     153: new Question(153, "153.mp3", ["7fc8b01e77bcacf6d5662638f67c71b8"]),
     154: new Question(154, "154.mp3", ["2b8e1d80f78a47378940d49691b42369"]),
@@ -217,7 +217,7 @@ export class DBService {
 
   async getAll(): Promise<Question[]>{
     return this.prepare().then(_ => {
-      return Object.values(this.data);
+      return this.questions();
     })
   }
 
@@ -226,6 +226,9 @@ export class DBService {
   }
 
   async reset(): Promise<void>{
+    this.questions().forEach((q: Question) => {
+      q.guess.reset();
+    });
     return this.cache.reset();
   }
 
@@ -237,10 +240,15 @@ export class DBService {
   }
 
   private processCachedGuess(guess: Guess) {
-    let question = this.data[guess.id];
+    let question = this.data[guess.id]; // avoid scanner loops
     if(question){
+      // not sure if the original raw data should be modified
       question.guess.answer = guess.answer;
       question.guess.status = guess.status;
     }
+  }
+
+  private questions(): Question[]{
+    return Object.values(this.data);
   }
 }

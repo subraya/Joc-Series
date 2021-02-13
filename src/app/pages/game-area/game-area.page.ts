@@ -55,7 +55,7 @@ export class GameAreaPage implements OnInit {
     return this.qualification.isPerfect();
   }
 
-  private updateQualification(scoreDiff){
+  private updateQualification(scoreDiff: number){
     this.qualification.updateQualification(scoreDiff);
   }
 }

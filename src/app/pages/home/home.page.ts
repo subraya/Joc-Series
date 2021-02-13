@@ -30,7 +30,7 @@ export class HomePage {
   async showInfo() {
     const alert = await this.alertController.create({
       cssClass: 'modal-help',
-      message: "<ion-icon src=\"assets/icon/question.svg\" slot=\"icon-only\"></ion-icon><p>T'has passat la vida davant la tele? Doncs aquest és el teu joc! 200 melodies. Totes les èpoques, des de grans clàssics fins als temps  actuals. Tots els gèneres, des d'aquelles sèries que veuries una vegada i una altra fins aquelles que et fa vergonya recordar que veies. Ets capaç d'encertar-les totes? </p><p>Els títols tant poden estar en català o en castellà, tal com s'han conegut aquí. Procura escriure'ls bé!<p>",
+      message: "<ion-icon src=\"assets/icon/question.svg\" slot=\"icon-only\"></ion-icon><p>T'has passat la vida davant la tele? Doncs aquest és el teu joc! 200 melodies. Totes les èpoques, tots els gèneres. Des d'aquelles sèries que veuries una vegada i una altra fins aquelles que et fa vergonya recordar que veies. Ets capaç d'encertar-les totes? </p><p>Els títols tant poden estar en català o en castellà, tal com s'han conegut aquí. Procura escriure'ls bé!</p>",
     });
 
     await alert.present();
@@ -45,6 +45,15 @@ export class HomePage {
         { text: 'Esborrar', handler: () => { this.reset(); } },
         { text: 'No esborrar', role: 'cancel' }
       ]
+    });
+
+    await alert.present();
+  }
+
+  async easter() {
+    const alert = await this.alertController.create({
+      cssClass: 'modal-help',
+      message: "<p>Si has descobert aquesta secció, enhorabona!, però aquí no hi ha res</p>",
     });
 
     await alert.present();
