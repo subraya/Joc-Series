@@ -33,10 +33,10 @@ export class Qualification {
     private decideOpinion(){
         if(this.progress < 0.005) this.opinion = 'comencem?';
         else if(this.progress < 0.1) this.opinion = "esforça't una mica";
-        else if(this.progress < 0.2) this.opinion = 'vergonya aliena';
-        else if(this.progress < 0.3) this.opinion = 'sense comentaris';
-        else if(this.progress < 0.4) this.opinion = 'ni fred ni calor';
-        else if(this.progress < 0.5) this.opinion = 'patata';
+        else if(this.progress < 0.2) this.opinion = 'ni fred ni calor';
+        else if(this.progress < 0.3) this.opinion = 'vergonya aliena';
+        else if(this.progress < 0.4) this.opinion = 'patata';
+        else if(this.progress < 0.5) this.opinion = "no n'hi ha per tant";
         else if(this.progress < 0.6) this.opinion = "ja em caus millor";
         else if(this.progress < 0.7) this.opinion = 'admirable';
         else if(this.progress < 0.8) this.opinion = 'apostoflant';
