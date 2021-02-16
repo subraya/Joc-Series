@@ -58,15 +58,15 @@ export class QuestionComponent implements OnInit {
         MEDIA_STARTING: 1
         MEDIA_STOPPED: 4
       */
-      if (status == 1 || status == 2) { //player start
+      if (status == 1 || status == 2) { // player start
         this.playing = true;
-        this.digest.detectChanges();
+        this.digest.detectChanges(); // enforce this.playing change on view
       }
 
       if (status == 4) { // player end running
         this.playing = false;
-        this.file.release();
-        this.digest.detectChanges();
+        this.file.release(); // release memory
+        this.digest.detectChanges();  // enforce this.playing change on view
       }
     }); 
   }
