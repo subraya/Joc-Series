@@ -9,4 +9,11 @@
             font-size: 0.9em;
         }
     }
+    button {
+        color: #92949c !important;
+
+        &.alert-button-role-cancel {
+            font-weight: bold;
+        }
+    }
 }
