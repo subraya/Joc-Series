@@ -18,7 +18,6 @@ export class QuestionComponent implements OnInit {
   @ViewChild("txtInput", { static: false }) txtInput: IonInput;
   @Output() onNewAnswer: EventEmitter<Object> = new EventEmitter<Object>();
 
-
   constructor(private digest: ChangeDetectorRef, private player: AudioPlayerService) {}
 
   ngOnInit() {}
@@ -81,6 +80,7 @@ export class QuestionComponent implements OnInit {
 
   // Conditional styles
 
+  // unreachable method
   statusText(): string{
     return this.question.guess.status ? 'CORRECTE' : 'INCORRECTE';
   }
@@ -89,4 +89,7 @@ export class QuestionComponent implements OnInit {
     return this.question.guess.status ? 'pass' : 'fail';
   }
 
+  statusIcon(): string{
+    return this.question.guess.status ? 'checkmark-outline' : 'close-outline';
+  }
 }

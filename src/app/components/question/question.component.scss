@@ -1,20 +1,23 @@
 :host {
-    --question-width: 150px;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: var(--question-width);
+    div {
+        height: 100%;
 
-    // dynamic margin to center each row of questions
-    margin: 0px calc((((100%)/10) - var(--question-width))/2); // 10 questions per row
-    @media (max-width: 1536px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); } // 5 questions per row
-    @media (max-width: 786px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); } // 4 questions per row
-    @media (max-width: 619px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); } // 2 questions per row
+        &.playing {
+            background-color: whitesmoke;
+        }
+    }
+
+    table {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
     td {
         padding-left: 1px;
         padding-right: 1px;
         padding-top: 5px;
-        padding-bottom: 5px;
+        padding-bottom: 5px; 
         border: 1px solid;
 
         &.title {
@@ -34,9 +37,6 @@
 
         &.answer {
             background-color: lemonchiffon;
-            ion-input {
-                max-width: var(--question-width);
-            }
         }
 
         &.status {
@@ -50,5 +50,61 @@
             }
         }
 
+    }
+
+    // if using tr with a single td
+    &.grid {
+        --question-width: 150px;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: var(--question-width);
+
+        // dynamic margin to center each row of questions
+        margin: 0px calc((((100%)/10) - var(--question-width))/2); // 10 questions per row
+        @media (max-width: 1536px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); } // 5 questions per row
+        @media (max-width: 786px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); } // 4 questions per row
+        @media (max-width: 619px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); } // 2 questions per row
+
+        td {
+            &.answer {
+                ion-input {
+                    max-width: var(--question-width);
+                }
+            }
+        }
+    }
+
+    // if using tr with multiple td
+    &.list {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+
+        table {
+            width: 100%;
+        }
+        
+
+        td {
+            &.title {
+                width: 40px;
+            }
+
+            &.status {
+                width: 50px;
+                font-size: 12px;
+
+                ion-icon {
+                    font-size: xx-large;
+                }
+
+                &.pass {
+                    color: darkgreen;
+                }
+                &.fail {
+                    color: rgb(138, 0, 0);
+                }
+            }
+        }
     }
 }
