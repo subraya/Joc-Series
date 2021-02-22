@@ -13,14 +13,30 @@ import { Question } from '../../models/question';
 export class QuestionComponent implements OnInit {
 
   @Input('question') question: Question;
-  private file: MediaObject;
-  playing: boolean;
-  @ViewChild("txtInput", { static: false }) txtInput: IonInput;
+  @ViewChild("ionInput", { static: false }) ionInput: IonInput;
   @Output() onNewAnswer: EventEmitter<Object> = new EventEmitter<Object>();
+
+  private domInput: HTMLInputElement;
+  private file: MediaObject;
+  private playing: boolean;
+  private writing: boolean;
 
   constructor(private digest: ChangeDetectorRef, private player: AudioPlayerService) {}
 
   ngOnInit() {}
+
+  ngAfterViewInit(){
+    this.ionInput.getInputElement().then(inputElement => {
+      this.domInput = inputElement;
+      let comp = this;
+      this.domInput.onfocus = function(_ev){
+        comp.writing = true;
+      };
+      this.domInput.onblur = function(_ev){
+        comp.writing = false;
+      };
+    });
+  }
 
   // get and play the audio file
   play(){
@@ -33,17 +49,13 @@ export class QuestionComponent implements OnInit {
     let prevStatus = this.question.guess.status;
     this.validateAnswer();
     this.onNewAnswer.emit({id: this.question.id, scoreDiff: +!!this.question.guess.status - Number(prevStatus)}); //just trying different ways to cast boolean to number
-    this.blurInput();
+    this.domInput.blur(); // focus out the text input // get rid of the keyboard when pressing enter
   }
 
   // check if the answer is valid
   private validateAnswer(){
     // NO CHEATING !!!!
-    let found = null;
-    if(this.question.guess.answer){ 
-      found = this.question.options.find(option => { return option == Md5.hashStr(this.question.guess.answer); });
-    }
-    this.question.guess.status = !!found;
+    this.question.guess.status = this.question.options.includes(Md5.hashStr((this.question.guess.answer || '').toLowerCase()).toString());
   }
 
   // create the audio file if it didn't exist before
@@ -70,19 +82,10 @@ export class QuestionComponent implements OnInit {
     }); 
   }
 
-  // focus out the text input
-  // get rid of the keyboard when pressing enter
-  private blurInput(){
-    this.txtInput.getInputElement().then(
-      inputElement => inputElement.blur()
-    );
-  }
-
   // Conditional styles
 
-  // unreachable method
-  statusText(): string{
-    return this.question.guess.status ? 'CORRECTE' : 'INCORRECTE';
+  isActive(){
+    return this.playing || this.writing;
   }
 
   statusColorClass(): string{

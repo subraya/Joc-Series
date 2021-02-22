@@ -1,17 +1,15 @@
 <ion-col>
-  <div [ngClass]="{'playing': playing}">
-  <table>
+  <div [ngClass]="{'playing': isActive()}">
+    <table>
+      <tr>
+        <td class="title">{{question.id}}</td>
 
-    <tr>
-      <td class="title">{{question.id}}</td>
+        <td (click)="play()" class="audio"><img src="../../assets/images/altaveu3.png"></td>
 
-      <td (click)="play()" class="audio" [ngClass]="{'active': playing}"><img src="../../assets/images/altaveu3.png"></td>
+        <td class="answer"><ion-input type="text" #ionInput placeholder="resposta" [(ngModel)]="question.guess.answer" (change)="processAnswer()"></ion-input></td>
 
-      <td class="answer"><ion-input type="text" #txtInput placeholder="resposta" [(ngModel)]="question.guess.answer" (change)="processAnswer()"></ion-input></td>
-
-      <td class="status {{statusColorClass()}}"><ion-icon name="{{statusIcon()}}" slot="icon-only"></ion-icon><!--{{statusText()}}--></td>
-    </tr>
-
-  </table>
+        <td class="status {{statusColorClass()}}"><ion-icon name="{{statusIcon()}}" slot="icon-only"></ion-icon></td>
+      </tr>
+    </table>
   </div>
 </ion-col>

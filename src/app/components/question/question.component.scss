@@ -1,4 +1,8 @@
 :host {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    
     div {
         height: 100%;
 
@@ -8,6 +12,7 @@
     }
 
     table {
+        width: 100%;
         position: relative;
         top: 50%;
         transform: translateY(-50%);
@@ -21,6 +26,7 @@
         border: 1px solid;
 
         &.title {
+            width: 40px;
             border: none;
             text-align: center;
             font-weight: bold;
@@ -29,10 +35,6 @@
         &.audio {
             text-align: center;
             background-color: white;
-
-            &.active {
-                background: repeating-linear-gradient(to bottom right, white 47%, white 50%, black 51%, white 51%, white 45%);
-            }
         }
 
         &.answer {
@@ -40,70 +42,23 @@
         }
 
         &.status {
+            width: 50px;
             text-align: center;
             font-weight: bold;
+            font-size: 12px;
+
             &.pass {
                 background-color: lime;
+                color: darkgreen;
             }
+
             &.fail {
                 background-color: red;
-            }
-        }
-
-    }
-
-    // if using tr with a single td
-    &.grid {
-        --question-width: 150px;
-        padding-left: 5px;
-        padding-right: 5px;
-        width: var(--question-width);
-
-        // dynamic margin to center each row of questions
-        margin: 0px calc((((100%)/10) - var(--question-width))/2); // 10 questions per row
-        @media (max-width: 1536px) { margin: 0px calc((((100%)/5) - var(--question-width))/2); } // 5 questions per row
-        @media (max-width: 786px) { margin: 0px calc((((100%)/4) - var(--question-width))/2); } // 4 questions per row
-        @media (max-width: 619px) { margin: 0px calc((((100%)/2) - var(--question-width))/2); } // 2 questions per row
-
-        td {
-            &.answer {
-                ion-input {
-                    max-width: var(--question-width);
-                }
-            }
-        }
-    }
-
-    // if using tr with multiple td
-    &.list {
-        padding-left: 5px;
-        padding-right: 5px;
-        width: 100%;
-
-        table {
-            width: 100%;
-        }
-        
-
-        td {
-            &.title {
-                width: 40px;
+                color: rgb(138, 0, 0);
             }
 
-            &.status {
-                width: 50px;
-                font-size: 12px;
-
-                ion-icon {
-                    font-size: xx-large;
-                }
-
-                &.pass {
-                    color: darkgreen;
-                }
-                &.fail {
-                    color: rgb(138, 0, 0);
-                }
+            ion-icon {
+                font-size: xx-large;
             }
         }
     }

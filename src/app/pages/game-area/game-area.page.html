@@ -12,8 +12,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-row *ngIf="dataReady" [ngClass]="{'gold': gameCompleted()}">
-    <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let question of game" [question]="question" class="list"></app-question>
+<ion-content [ngClass]="{'gold': gameCompleted()}">
+  <ion-row *ngIf="dataReady">
+    <app-question (onNewAnswer)="onNewAnswer($event)" *ngFor="let question of game" [question]="question"></app-question>
   </ion-row>
 </ion-content>
